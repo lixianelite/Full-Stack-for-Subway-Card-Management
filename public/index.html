@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MARTA PROJECT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/demo.css"/> 
+    <link rel="stylesheet" type="text/css" href="stylesheets/login.css"/> 
+    <link rel="stylesheet" type="text/css" href="stylesheets/passenger.css"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/animate-custom.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    
+
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1></h1>
+        </header>
+        <section>
+            <div id="container">
+                <a id="toregister" class="hiddenanchor"></a>
+                <a id="tologin" class="hiddenanchor"></a>
+                <div id="wrapper">
+
+
+                    <div id="login" class="animate">
+                        <form id="sign-in-form" autocomplete="on">
+                            <h1>Log In</h1>
+                            <p>
+                                <label for="username1" data-icon="u" >Username</label>
+                                <input id="username1" name="username" type="text" required placeholder="username">
+                            </p>
+                            <p>
+                                <label for="password1" data-icon="p">Password</label>
+                                <input id="password1" name="password" type="password" required placeholder="password">
+                            </p>
+                            <div id="signin-error-div" class="form-group" style="color:#ff0000">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <span id="error-msg">Invalid username or password</span>
+                                </div>
+                            </div>
+                            <p class="login button">
+                                <input id="sign-in" type="submit" value="login">
+                            </p>
+                            <p>
+                                Not a member yet?
+                                <a href="#toregister">Register</a>
+                            </p>
+                        </form>
+                    </div>
+
+
+
+                    <div id="register" class="animate">
+                        <form id="register-form" autocomplete="on">
+                            <h1>New Passenger Registration</h1>
+                            <p>
+                                <label for="username" data-icon="u">Username</label>
+                                <input id="username" name="username" type="text" required placeholder="username">
+                            </p>
+                            <p>
+                                <label for="email" data-icon="e">Email</label>
+                                <input id="email" name="email" required type="email" placeholder="email">
+                            </p>
+                            <p>
+                                <label for="password" data-icon="p">Password</label>
+                                <input id="password" name="password" required type="password" placeholder="password">
+                            </p>
+                            <p>
+                                <label for="password_confirm" data-icon="p"="">Password Conformation</label>
+                                <input id="password_confirm" name="password_conform" required type="password" placeholder="confirm password">
+                            </p>
+                            <div id="breezecard_opt_div">
+
+                                <label>Using Existing Breeze Card?</label>
+                                <br>
+                                <label class="switch">
+                                    <input id="breeze_card_switch" name="breeze_card_switch" type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                          
+
+                                <div id="breezecard_numb_div">
+                                    <label for="breeze_card_opt" >Breeze Card Number</label>
+                                    <input id="breezecard_num" name="breezecard_num" style="padding-left:10px" placeholder="16 digit number">
+                                </div>
+                            </div>
+                            <div id="register-error-div" class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9" style="color:#ff0000">
+                                    <span id="error-msg">Invalid username or password</span>
+                                </div>
+                            </div>
+
+                            <p id='submit_button' class="signin button">
+                                <input type="submit" value="Create Account">
+                            </p>
+
+                            <p>
+                                Already a memeber?
+                                <a href="#tologin" class="login">Sign In</a>
+                            </p>
+                        </form>
+                    </div>
+
+
+
+
+
+                    <div id="passenger-div">
+                        <div>
+                            <h2 class="panel-title">Welcome to MARTA</h2>
+                        </div>
+                        <div>
+                            <div id="lw-div">
+                                <span>Breeze Card</span>
+                                <div>
+                                    <button id="lw-bt" type="button">
+                                        12345678910111245
+                                        <span></span>
+                                    </button>
+                                    <ul>
+                                        <li>
+                                            <a href="#">12345678910111245</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">3</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">4</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">5</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">6</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="javascripts/login.js"></script>
+    <script src="javascripts/register.js"></script>
+
+
+    
+</body>
+</html>
