@@ -25,7 +25,7 @@ CREATE TABLE Breezecard(
 CREATE TABLE Conflict(
 	Psgr_username VARCHAR(64),
 	Card_num CHAR(16),
-	Date_time DATE,
+	Date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(Psgr_username, Card_num),
 	FOREIGN KEY(Psgr_username) REFERENCES Passenger(Username) ON DELETE CASCADE ON UPDATE RESTRICT,
 	FOREIGN KEY(Card_num) REFERENCES Breezecard(Cnum) ON DELETE RESTRICT ON UPDATE RESTRICT);

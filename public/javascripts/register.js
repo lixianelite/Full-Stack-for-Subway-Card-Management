@@ -51,9 +51,7 @@ $(document).ready(function () {
             type: 'POST',
             data: d,
             success: function (result) {
-
-
-                //verifyRegister(result);
+                verifyRegister(result);
             }
         });
     });
@@ -62,26 +60,35 @@ $(document).ready(function () {
     var verifyRegister = function (result) {
         switch (result.statusCode) {
         case 'OK':
-            var username = result.username;
-            console.log(result.username);
-            window.location.href = `/passengerBreezecards.html?username=${username}`;
+            //var username = result.username;
+            console.log('OK!');
+            //window.location.href = `/passengerBreezecards.html?username=${username}`;
             break;
 
-        case 'USER_NAME_OR_EMAIL_NOT_UNIQUE':
+        case 'USERNAME_ALREADY_EXIST':
             console.log(result);
-            showRegisterError(result.message); // show error messag
+            showRegisterError('Username already exists!'); // show error messag
+            break;
+
+        case 'EMAIL_ALREADY_EXIST':
+            console.log(result);
+            showRegisterError('Email address already exists!'); // show error messag
+            break;
+
+        case 'USERNAME_AND_EMAIL_ALREADY_EXIST':
+            console.log(result);
+            showRegisterError('Both username and email address already exist!'); // show error messag
             break;
 
         case 'CONFLICT':
-            alert(result.message);
-            username = result.username;
-            console.log(result.username);
-            window.location.href = `/passengerBreezecards.html?username=${username}`;
+            alert('Conflict!');
+            //var username = result.username;
+            //console.log(result.username);
+            //window.location.href = `/passengerBreezecards.html?username=${username}`;
             break;
 
         case 'CONFLICT_AGAIN':
-            console.log(result);
-            alert(result.message);
+            alert('Conflict again!');
             break;
         }
     };
