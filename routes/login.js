@@ -14,8 +14,6 @@ exports.login = function(req, res) {
     console.log('password: '+ req.body.password);
 
     db.query(sql, user.username, function(err, rows) {
-        console.log('executed here');
-
         if(err) {
             console.error(err);
             throw err;
@@ -30,15 +28,16 @@ exports.login = function(req, res) {
             return;
         }
         var username = rows[0].Username;
-        var password = rows[0].password;
+        var password = rows[0].Password;
         var IsAdmin = rows[0].IsAdmin ? 'TRUE' : 'FALSE';
+
 
         if (user.username == username && md5(user.password) == password) {
             res.send({
                 'code': 200,
                 'statusCode': 'OK',
                 'isAdmin': IsAdmin,
-                'success': 'login successful'
+                'success': 'login successful',
             });
             console.info('Login successfully');
         } else if(username == rows[0].Username && md5(user.password) != password) {

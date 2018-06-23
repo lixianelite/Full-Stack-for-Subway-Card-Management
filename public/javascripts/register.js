@@ -62,7 +62,7 @@ $(document).ready(function () {
         case 'OK':
             //var username = result.username;
             console.log('OK!');
-            //window.location.href = `/passengerBreezecards.html?username=${username}`;
+            window.location.href = '/#tologin';
             break;
 
         case 'USERNAME_ALREADY_EXIST':

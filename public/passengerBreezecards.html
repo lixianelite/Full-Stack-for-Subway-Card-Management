@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Welcome to MARTA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="javascripts/passengerBC.js"></script>
+</head>
+<body>
+    <div class="container" style="margin-top:20px">
+        <h1>Welcome to MARTA</h1>
+        <form id="PassengerBreezecards" class="form-horizontal">
+            <div class="form-row">
+                <label for="sel1" style="padding: 6px 12px 2px 6px">Select Breezecard</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="sel1">
+                        <option>Select Breezecard</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" id="manage-card-btn">Manage Cards</button>
+            </div>
+            <div "form-group" style="margin-top: 20px">
+                <label for="sID" class="col-xs-3 control-label">Balance</label>
+                <label id="balance" style="margin-left:100px"></label>
+            </div>
+            <div class="form-row" style="margin-bottom:20px">
+                <label for="sel2" style="float:left; padding: 6px 95px 2px 6px;">Start At</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="sel2">
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" id="start">Start Trip</button>
+                <label id="progress" style="margin-top:8px; margin-left:10px; color:green">Trip in progress</label>
+            </div>
+            <div class="form-row">
+                <label for="sel3" style="float:left; padding: 6px 80px 2px 6px;">Ending At</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="sel3">
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" id="end">End Trip</button>
+            </div>
+            <div style="margin-top:100px">
+                <div style="float: left; width: 130px">
+                    <button type="button" class="btn btn-primary" id="view-trip-btn">View Trip History</button>
+                </div>
+                <div style="float: right; width: 450px">
+                    <button type="button" class="btn btn-primary" id="logout">Logout</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+</body>
+</html>

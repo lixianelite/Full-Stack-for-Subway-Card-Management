@@ -34,11 +34,10 @@ var verifySignIn = function(result) {
     case 'OK':
         $('#login').hide();
         if (result.isAdmin == 'TRUE') {
-            
             window.location.href = '/administration.html';
         } else {
-            var username = $('#username').val();
-            window.location.href = `/passengerBreezecards.html ? username =${username}`;
+            var username = $('#username1').val();
+            window.location.href = `/passengerBreezecards.html?username=${username}`;
         }
         break;
     
