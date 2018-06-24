@@ -13,11 +13,14 @@ router.get('/', function(req, res) {
     console.log('path: ' + path.join(__dirname, '../public/index.html'));
 });
 
+
+
 router.post('/login', login.login);
 router.post('/register', register.register);
 router.post('/breezecardNums', passenger.getBreezecardNums);
 router.post('/stations', passenger.getStations);
 router.post('/endStations', passenger.getEndStations);
+router.post('/startTrip', passenger.startTrip);
 
 
 module.exports = router;

@@ -1,7 +1,7 @@
 CREATE TABLE User (
     Username VARCHAR(64),
     Password VARCHAR(64) NOT NULL,
-    isAdmin	 BOOLEAN	 NOT NULL,
+    IsAdmin	 BOOLEAN	 NOT NULL,
     PRIMARY KEY(Username));
 
 CREATE TABLE Passenger(
@@ -14,49 +14,50 @@ CREATE TABLE Passenger(
 	UNIQUE(Email));
 
 CREATE TABLE Breezecard(
-	Cnum Char(16),
+	BreezecardNum Char(16),
 	Value Decimal(6,2) NOT NULL,
-	Psgr_username VARCHAR(64),
-	PRIMARY KEY (Cnum),
-	FOREIGN KEY (Psgr_username) REFERENCES User(Username) ON DELETE SET NULL ON UPDATE CASCADE,
+	BelongsTo VARCHAR(64),
+	PRIMARY KEY (BreezecardNum),
+	FOREIGN KEY (BelongsTo) REFERENCES User(Username) ON DELETE SET NULL ON UPDATE CASCADE,
 	CHECK(Value >= 0.0 AND Value <= 1000.00)
 );
 
 CREATE TABLE Conflict(
-	Psgr_username VARCHAR(64),
-	Card_num CHAR(16),
-	Date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY(Psgr_username, Card_num),
-	FOREIGN KEY(Psgr_username) REFERENCES Passenger(Username) ON DELETE CASCADE ON UPDATE RESTRICT,
-	FOREIGN KEY(Card_num) REFERENCES Breezecard(Cnum) ON DELETE RESTRICT ON UPDATE RESTRICT);
+	Username VARCHAR(64),
+	BreezecardNum CHAR(16),
+	DateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(Username, BreezecardNum),
+	FOREIGN KEY(Username) REFERENCES Passenger(Username) ON DELETE CASCADE ON UPDATE RESTRICT,
+	FOREIGN KEY(BreezecardNum) REFERENCES Breezecard(BreezecardNum) ON DELETE RESTRICT ON UPDATE RESTRICT);
 
 CREATE TABLE Station(
-	Stop_id INT,
-	Enter_fare Decimal(4,2) NOT NULL,
-	Close_status BOOLEAN NOT NULL,
-	isTrainStation BOOLEAN NOT NULL,
-	Name VARCHAR(15) NOT NULL,
-	PRIMARY KEY(Stop_id),
-	UNIQUE(Name),
-	CHECK(Enter_fare >= 0 AND Enter_fare <= 50));
+	StopID VARCHAR(16),
+	Name VARCHAR(64) NOT NULL,
+	EnterFare Decimal(4,2) NOT NULL,
+	ClosedStatus BOOLEAN NOT NULL,
+	IsTrain BOOLEAN NOT NULL,
+	PRIMARY KEY(StopID),
+	UNIQUE(Name, IsTrain),
+	CHECK(EnterFare >= 0 AND EnterFare <= 50));
 
-CREATE TABLE Bus_station(
-	Stop_id INT,
-	Intersection INT,
-	PRIMARY KEY(Stop_id),
-	FOREIGN KEY(Stop_id) REFERENCES Station(Stop_id) ON DELETE CASCADE ON UPDATE CASCADE);
+CREATE TABLE BusStation(
+	StopID VARCHAR(16),
+	Intersection VARCHAR(64),
+	PRIMARY KEY(StopID),
+	FOREIGN KEY(StopID) REFERENCES Station(StopID) ON DELETE CASCADE ON UPDATE CASCADE);
 
 
 CREATE TABLE Trip(
-	Card_num CHAR(16) NOT NULL,
-	Start_time TIMESTAMP NOT NULL,
-	Current_fare Decimal(10,2) NOT NULL,
-	Origin_id INT,
-	Destination_id INT,
-	PRIMARY KEY(Card_num, Start_time),
-	FOREIGN KEY(Origin_id) REFERENCES Station(Stop_id) ON DELETE SET NULL ON UPDATE SET NULL,
-	FOREIGN KEY(Destination_id) REFERENCES Station(Stop_id) ON DELETE SET NULL ON UPDATE SET NULL,
-	FOREIGN KEY(Card_num) REFERENCES Breezecard(Cnum) ON DELETE RESTRICT ON UPDATE RESTRICT);
+	BreezecardNum CHAR(16),
+	StartTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	Tripfare Decimal(10,2) NOT NULL,
+	StartsAt VARCHAR(16),
+	EndsAt VARCHAR(16),
+	PRIMARY KEY(BreezecardNum, StartTime),
+	FOREIGN KEY(StartsAt) REFERENCES Station(StopID) ON DELETE SET NULL ON UPDATE SET NULL,
+	FOREIGN KEY(EndsAt) REFERENCES Station(StopID) ON DELETE SET NULL ON UPDATE SET NULL,
+	FOREIGN KEY(BreezecardNum) REFERENCES Breezecard(BreezecardNum) ON DELETE RESTRICT ON UPDATE RESTRICT);
+
 
 
 
