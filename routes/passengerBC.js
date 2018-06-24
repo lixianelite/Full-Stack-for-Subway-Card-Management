@@ -5,13 +5,15 @@ const sql_select_nosuspend_card = 'SELECT * FROM Breezecard WHERE BreezecardNum'
                         + ' NOT IN (SELECT C.BreezecardNum from Conflict AS C) AND BelongsTo=?';
 const sql_select_all_stations = 'SELECT * FROM Station';
 const sql_select_end_stations = 'SELECT Name FROM Station AS S WHERE S.IsTrain = ?;';
-const sql_select_on_trip_card = 'SELECT T.StartTime, T.BreezecardNum, T.StartsAt, S.Name, S.EnterFare FROM Trip AS T, Station AS S'
+const sql_select_on_trip_card = 'SELECT T.StartTime, T.BreezecardNum, T.StartsAt, S.Name, S.EnterFare, S.IsTrain FROM Trip AS T, Station AS S'
                                 + ' WHERE T.BreezecardNum IN' 
                                 + ' (SELECT B.BreezecardNum FROM Breezecard AS B WHERE B.BreezecardNum NOT IN (SELECT C.BreezecardNum FROM Conflict AS C) AND BelongsTo = ?)'
                                 + ' AND T.EndsAt is NULL'
                                 + ' AND T.StartsAt = S.StopID;';
 const sql_insert_trip = 'INSERT INTO TRIP(BreezeCardNum, Tripfare, StartsAt) Values(?, ?, (SELECT StopID FROM Station WHERE Name = ? AND IsTrain = ?));';
 const sql_update_balance = 'UPDATE Breezecard SET Value = ? WHERE BreezecardNum = ?;';
+
+const sql_update_trip = 'UPDATE Trip SET EndsAt = (SELECT StopID from Station WHERE Name = ? AND IsTrain = ?) WHERE BreezecardNum = ? AND EndsAt IS NULL';
 
 exports.getBreezecardNums = function(req, res) {
 
@@ -71,6 +73,19 @@ module.exports.startTrip = function(req, res) {
             }).end();
             return;
         });
+    });
+};
+
+module.exports.endTrip = function(req, res) {
+    var body = req.body;
+
+    var type = body.type === 'Train' ? 1 : 0;
+
+    db.query(sql_update_trip, [body.endStation, type, body.breezecardNum], function(err) {
+        if(err) throw err;
+        res.send({
+            'statusCode': 'TRIP_END'
+        }).end();
     });
 };
 

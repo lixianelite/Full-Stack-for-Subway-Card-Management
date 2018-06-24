@@ -21,6 +21,8 @@ router.post('/breezecardNums', passenger.getBreezecardNums);
 router.post('/stations', passenger.getStations);
 router.post('/endStations', passenger.getEndStations);
 router.post('/startTrip', passenger.startTrip);
+router.post('/endTrip', passenger.endTrip);
+
 
 
 module.exports = router;

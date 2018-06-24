@@ -28,6 +28,13 @@ var htmlBehaviorSetup = function() {
         startTrip();
     });
 
+    $('#end').click(function() {
+        endTrip();
+    });
+
+    $('#view-trip-btn').click(function() {
+        window.location.href = `/tripHistory.html?username=${username}`;
+    });
 };
 
 var initialization = function() {
@@ -74,7 +81,10 @@ var getBreezecardNums = function(){
 var setUpOntripInfo = function(tripInfo) {
     $('#start').hide();
     $('#progress').show();
-    var info = tripInfo[0].Name + ' - $' + tripInfo[0].EnterFare;
+
+    var station = tripInfo[0].IsTrain ? tripInfo[0].Name + '(Train)' : tripInfo[0].Name + '(Bus)';
+    var info = station + ' - $' + tripInfo[0].EnterFare;
+
     $('#sel1').val(tripInfo[0].BreezecardNum);
     $('#sel1').prop('disabled', true);
 
@@ -95,6 +105,7 @@ var getStations = function() {
         success: function(result) {
             if(result != '') {
                 var json = JSON.parse(result);
+                $('#sel2').children().remove();
                 for(var i = 0; i < json.length; i++) {
                     var stationName = json[i].IsTrain == '1' ? json[i].Name + '(Train)' : json[i].Name + '(Bus)';
                     $('#sel2').append('<option>' + stationName+ ' - $' + json[i].EnterFare + '</option>');
@@ -224,6 +235,55 @@ var startTrip = function() {
             updateBalance(cardNum, balance);
         }
     });
+};
+
+var endTrip = function() {
+
+    var breezecardNum = $('#sel1').val();
+
+    var endStation = $('#sel3').val();
+
+    if(endStation == undefined || endStation == ''){
+        alert('Please select an end station!');
+        return;
+    }
+
+    var str = $('#sel2').val();
+    var splitStartStation = str.split(' - $');
+    var station = splitStartStation[0];
+    var index = station.search(/\(.*\)/);
+    var type = station.substring(index + 1, station.length - 1);
+
+
+    var data = {
+        'breezecardNum': breezecardNum,
+        'type': type,
+        'endStation': endStation
+    };
+
+    var url = 'http://localhost:8080/endTrip';
+
+    var payload = JSON.stringify(data);
+
+    console.log(payload);
+
+    $.ajax({
+        url: url,
+        data: payload,
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        success: function(result) {
+            if(result.statusCode === 'TRIP_END') {
+                $('#start').show();
+                $('#progress').hide();
+                $('#end').hide();
+                $('#sel1').prop('disabled', false);
+                $('#sel2').prop('disabled', false);
+                getStations();
+            }
+        }
+    });
+
 };
 
 var updateBalance = function(cardNum, balance) {
