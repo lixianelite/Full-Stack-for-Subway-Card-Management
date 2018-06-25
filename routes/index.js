@@ -7,6 +7,7 @@ var path = require('path');
 const login = require('./login');
 const register = require('./register');
 const passenger = require('./passengerBC');
+const tripHistory = require('./tripHistory');
 
 router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'));
@@ -22,6 +23,8 @@ router.post('/stations', passenger.getStations);
 router.post('/endStations', passenger.getEndStations);
 router.post('/startTrip', passenger.startTrip);
 router.post('/endTrip', passenger.endTrip);
+
+router.get('/tripHistory', tripHistory.tripHistory);
 
 
 
