@@ -38,6 +38,7 @@ exports.getBreezecardNums = function(req, res) {
             if(rows.length > 0){
                 json = JSON.stringify(rows);
             }
+            console.log(result);
             res.send({
                 'breezecardsInfo': result,
                 'tripInfo': json

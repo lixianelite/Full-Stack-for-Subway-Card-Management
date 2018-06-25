@@ -35,6 +35,14 @@ var htmlBehaviorSetup = function() {
     $('#view-trip-btn').click(function() {
         window.location.href = `/tripHistory.html?username=${username}`;
     });
+
+    $('#manage-card-btn').click(function() {
+        window.location.href = `/manageCards.html?username=${username}`;
+    });
+
+    $('#logout').click(function(){
+        window.location.href = '/index.html';
+    });
 };
 
 var initialization = function() {
