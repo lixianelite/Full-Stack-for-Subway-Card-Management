@@ -31,14 +31,14 @@ exports.getBreezecardNums = function(req, res) {
     });
 
     promise.then(function(result) {
-        console.log(sql_select_on_trip_card);
+        //console.log(sql_select_on_trip_card);
         db.query(sql_select_on_trip_card, username, function(err, rows) {
             if(err) throw err;
             var json = '';
             if(rows.length > 0){
                 json = JSON.stringify(rows);
             }
-            console.log(result);
+            //console.log(result);
             res.send({
                 'breezecardsInfo': result,
                 'tripInfo': json
