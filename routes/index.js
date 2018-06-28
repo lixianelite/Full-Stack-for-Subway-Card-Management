@@ -25,6 +25,7 @@ router.post('/startTrip', passenger.startTrip);
 router.post('/endTrip', passenger.endTrip);
 router.post('/addNewCard', manageCards.addNewBreezecard);
 router.post('/addValue', manageCards.addValue);
+router.post('/removecard', manageCards.removeCard);
 
 router.get('/tripHistory', tripHistory.tripHistory);
 

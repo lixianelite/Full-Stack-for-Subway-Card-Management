@@ -10,6 +10,8 @@ const sql_insert_breezecard = 'INSERT INTO Breezecard(BreezecardNum, Value, Belo
 const sql_update_breezecard = 'UPDATE Breezecard SET BelongsTo = ? WHERE BreezecardNum = ?';
 const sql_update_breezecard_value = 'UPDATE Breezecard SET Value = ? WHERE BreezecardNum = ?';
 
+const sql_update_breezecard_BelongsTo = 'UPDATE Breezecard SET BelongsTo = NULL WHERE BreezecardNum = ?';
+
 module.exports.addNewBreezecard = function(req, res){
     var body = req.body;
 
@@ -60,6 +62,20 @@ module.exports.addValue = function(req, res) {
     db.query(sql_update_breezecard_value, [body.value, body.breezecardNum], function(err) {
         if(err) throw err;
         
+        res.send('success').end();
+
+    });
+
+};
+
+module.exports.removeCard = function(req, res) {
+    var body = req.body;
+
+    console.log(body);
+
+    db.query(sql_update_breezecard_BelongsTo, body.breezecardNum, function(err) {
+        if(err) throw err;
+
         res.send('success').end();
 
     });

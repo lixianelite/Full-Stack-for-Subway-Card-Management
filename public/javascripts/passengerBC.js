@@ -3,6 +3,8 @@ const username = String(window.location.search.split('?')[1].split('=')[1]);
 
 var cardInfo = [];
 
+var ontripCard = '';
+
 $(document).ready(function() {
 
     htmlBehaviorSetup();
@@ -37,7 +39,7 @@ var htmlBehaviorSetup = function() {
     });
 
     $('#manage-card-btn').click(function() {
-        window.location.href = `/manageCards.html?username=${username}`;
+        window.location.href = `/manageCards.html?username=${username}&ontripCard=${ontripCard}`;
     });
 
     $('#logout').click(function(){
@@ -94,6 +96,7 @@ var setUpOntripInfo = function(tripInfo) {
     var info = station + ' - $' + tripInfo[0].EnterFare;
 
     $('#sel1').val(tripInfo[0].BreezecardNum);
+    ontripCard = tripInfo[0].BreezecardNum;
     $('#sel1').prop('disabled', true);
 
     $('#sel2').append('<option>' + info + '</option>');
@@ -237,6 +240,7 @@ var startTrip = function() {
                 $('#end').show();
                 $('#sel1').prop('disabled', true);
                 $('#sel2').prop('disabled', true);
+                ontripCard = cardNum;
             }
         },
         complete: function() {
@@ -282,6 +286,7 @@ var endTrip = function() {
         contentType: 'application/json; charset=utf-8',
         success: function(result) {
             if(result.statusCode === 'TRIP_END') {
+                ontripCard = '';
                 $('#start').show();
                 $('#progress').hide();
                 $('#end').hide();

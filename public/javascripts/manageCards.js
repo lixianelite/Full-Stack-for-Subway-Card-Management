@@ -1,5 +1,9 @@
-const username = String(window.location.search.split('?')[1].split('=')[1]);
-const onTripcard = String(window.location.search.split('?')[1].split('=')[2]);
+var queryParams = window.location.search.split('?')[1];
+
+const username = String(queryParams.split('&')[0].split('=')[1]);
+
+const onTripcard = String(queryParams.split('&')[1].split('=')[1]);
+
 var breezecard = [];
 
 $(document).ready(function() {
@@ -9,6 +13,10 @@ $(document).ready(function() {
     $('#wrong-card-num').hide();
     $('#wrong-value').hide();
     $('#limitation').hide();
+
+    console.log('window: ' + window.location.search);
+
+    console.log('on trip card: ' + onTripcard);
 
     
     $('#home').click(function() {
@@ -35,14 +43,10 @@ $(document).ready(function() {
 
     var selectedValue;
 
-    var selectedRow;
-
     $('#breezecards').on('click', 'tr', function() {
         var $datatable = $('#breezecards').DataTable();
 
         selectedCard = $datatable.row(this).data()[0];
-
-        selectedRow = $datatable.row(this);
 
         selectedValue = ($datatable.row(this).data()[1]).split('$')[1];
 
@@ -56,10 +60,28 @@ $(document).ready(function() {
         }
     });
 
+    $('#breezecards').on('click', 'td', function() {
+        var $datatable = $('#breezecards').DataTable();
+
+        selectedCard = $datatable.row(this).data()[0];
+
+        if($datatable.cell(this).data() == 'Remove') {
+            if($datatable.rows().count() <= 1) {
+                alert('You cannot remove the last card');
+                return;
+            }
+
+            if(selectedCard == onTripcard) {
+                alert('You cannot remove on trip card');
+                return;
+            }
+            removeBreezecard(selectedCard);
+        }
+
+    });
 
 
     $('#add-value-btn').click(function() {
-
 
         var result = validateCreditCardNum($('#credit-card').val());
         if(!result) {
@@ -74,17 +96,40 @@ $(document).ready(function() {
             $('#limitation').show();
             return;
         }
-        addValue(selectedCard, total, selectedRow);
-
-
-
+        addValue(selectedCard, total);
     });
 
     getBreezecards();
     
 });
 
-var addValue = function(breezecardNum, value, selectedRow) {
+
+var removeBreezecard = function(selectedCard) {
+    var url = 'http://localhost:8080/removecard';
+
+    var payload = {
+        'breezecardNum': selectedCard
+    };
+
+    console.log('breezecard:' + selectedCard);
+
+    $.ajax({
+        type: 'POST',
+        data: payload,
+        url: url,
+
+        success: function(result) {
+            if(result == 'success') {
+                deleteData(selectedCard);
+                drawTable();
+            }
+        }
+
+    });
+
+};
+
+var addValue = function(breezecardNum, value) {
 
     var url = 'http://localhost:8080/addValue';
 
@@ -100,7 +145,7 @@ var addValue = function(breezecardNum, value, selectedRow) {
 
         success: function(result) {
             if(result == 'success') {
-                changeValue(breezecardNum, value, selectedRow);
+                changeValue(breezecardNum, value);
             }
             
         }
@@ -109,12 +154,12 @@ var addValue = function(breezecardNum, value, selectedRow) {
 };
 
 var changeValue = function(breezecardNum, value) {
-    var $datatable = $('#breezecards').DataTable();
 
     console.log(breezecardNum, value);
 
-    $datatable.draw();
+    updateData(breezecardNum, value);
 
+    drawTable();
 
 };
 
@@ -133,33 +178,64 @@ var getBreezecards = function(){
         success: function(result) {
             var data = JSON.parse(result.breezecardsInfo);
 
-            console.log(data);
-
-            drawTable(data);
+            loadData(data);
+            drawTable();
         }
     });
 
 };
 
-var drawTable = function(data) {
+var loadData = function(data) {
+
+    breezecard = [];
+
+    for(var i = 0; i < data.length; i++){
+        breezecard.push({
+            'breezecardNum': data[i].BreezecardNum,
+            'value': data[i].Value
+        });
+    }
+};
+
+var updateData = function(breezecardNum, value) {
+
+    for(var i = 0; i < breezecard.length; i++) {
+        if(breezecard[i].breezecardNum == breezecardNum) {
+            breezecard[i].value = value;
+            break;
+        }
+    }
+};
+
+var deleteData = function(breezecardNum) {
+
+    for(var i = 0; i < breezecard.length; i++) {
+        if(breezecard[i].breezecardNum == breezecardNum) {
+            breezecard.splice(i, 1);
+            return;
+        }
+    }
+
+};
+
+var drawTable = function() {
 
     var $datatable = $('#breezecards').DataTable();
     $datatable.clear();
-    breezecard = [];
 
     var array;
-    for(var i = 0; i < data.length; i++){
+    for(var i = 0; i < breezecard.length; i++){
         array = [];
-        breezecard.push(data[i].BreezecardNum);
-        array.push(data[i].BreezecardNum);
-        array.push('$' + data[i].Value);
+
+        array.push(breezecard[i].breezecardNum);
+        array.push('$' + breezecard[i].value);
         array.push('Remove');
         $datatable.row.add(array);
     }
     $datatable.draw();
 };
 
-var tableAddNewValue = function(breezecardNum, value) {
+var tableAddNewCard = function(breezecardNum, value) {
     var $datatable = $('#breezecards').DataTable();
     var array = [];
     array.push(breezecardNum);
@@ -172,8 +248,11 @@ var tableAddNewValue = function(breezecardNum, value) {
 };
 
 var updateBreezecardInView = function(breezecardNum, value) {
-    breezecard.push(breezecardNum);
-    tableAddNewValue(breezecardNum, value);
+    breezecard.push({
+        'breezecardNum': breezecardNum,
+        'value': value
+    });
+    tableAddNewCard(breezecardNum, value);
 };
 
 var addNewCard = function() {
@@ -208,7 +287,6 @@ var addNewCard = function() {
             }
         });
     }
-
 };
 
 var validateCreditCardNum = function(creditCardNum) {
@@ -238,7 +316,7 @@ var validateCardNum = function(breezecardNum) {
     }
 
     for(var i = 0; i < breezecard.length; i++) {
-        if(breezecardNum == breezecard[i]) {
+        if(breezecardNum == breezecard[i].breezecardNum) {
             alert('The card number is already belongs to this account!');
             $('#new-card-num').val('');
             $('#new-card-num').focus();
