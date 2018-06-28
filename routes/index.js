@@ -9,6 +9,7 @@ const register = require('./register');
 const passenger = require('./passengerBC');
 const tripHistory = require('./tripHistory');
 const manageCards = require('./manageCards');
+const flowReport = require('./flowReport');
 
 router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'));
@@ -28,6 +29,7 @@ router.post('/addValue', manageCards.addValue);
 router.post('/removecard', manageCards.removeCard);
 
 router.get('/tripHistory', tripHistory.tripHistory);
+router.get('/flowReport', flowReport.flowReport);
 
 
 
