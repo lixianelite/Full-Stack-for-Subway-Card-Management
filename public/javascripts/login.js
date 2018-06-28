@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 
     $('#signin-error-div').hide();
@@ -34,7 +33,7 @@ var verifySignIn = function(result) {
     case 'OK':
         $('#login').hide();
         if (result.isAdmin == 'TRUE') {
-            window.location.href = '/administration.html';
+            window.location.href = '/administrator.html';
         } else {
             var username = $('#username1').val();
             window.location.href = `/passengerBreezecards.html?username=${username}`;
