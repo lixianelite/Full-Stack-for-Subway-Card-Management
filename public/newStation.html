@@ -1,12 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Create a Station</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    
 </head>
 <body>
-    
+    <div class="container" style="margin-top: 20px">
+        <p style="color:red">* means required</p>
+        <p id="errormessage" style="color:red"></p>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label  for="name" class="col-sm-2 control-label">Station Name*</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" placeholder="name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="stopid" class="col-sm-2 control-label">Stop ID*</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="stopid" placeholder="id" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fare" class="col-sm-2 control-label">Enter Fare*</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="fare" placeholder="$" required>
+                </div>
+            </div>
+
+            <fieldset class="form-control" style="margin-bottom:20px;">
+                <legend>Station Type</legend>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input id="bus"  type="radio" class="form-check-input" name="optionsRadios" checked="checked"> Bus Station
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Nearest Intersection</label>
+                    <input id="intersection" type="text" class="form-control">
+                </div>
+                <div  class="form-check">
+                    <label class="form-check-label">
+                        <input id="train" type="radio" class="form-check-input" name="optionsRadios"> Train Station
+                    </label>
+                </div>
+            </fieldset>
+
+            <div class="form-group" style="margin:15px">
+                <label class="form-check-label" style="margin-bottom:10px">
+                    <input id="check" type="checkbox" class="form-check-input"> Open Station*
+                </label>
+                <p>When checked, passengers can enter at this station</p>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" id="create">Create Station</button>
+                </div>
+            </div>
+
+            <div class="form-group mx-sm-3">
+                <button type="button" class="btn btn-primary" id="home">Return</button>
+            </div>
+
+        </form>
+    </div>
+    <script src="javascripts/newStation.js"></script>
 </body>
 </html>

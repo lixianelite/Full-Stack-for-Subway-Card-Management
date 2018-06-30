@@ -26,6 +26,10 @@ $(document).ready(function() {
         window.location.href = '/viewStation.html?StopID='+selectedID;
     });
 
+    $('#create-station-btn').click(function() {
+        window.location.href='/newStation.html';
+    });
+
     getStations();
 
 });
@@ -65,6 +69,5 @@ var drawTable = function(data) {
     }
 
     $datatable.draw();
-
 
 };
