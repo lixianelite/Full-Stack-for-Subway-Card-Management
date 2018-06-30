@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Station Detail - Station Name</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <h1 style="margin:15px">Station Name</h1>
+        <div style="margin:15px">
+            <label>Stop ID</label>
+            <label id="stopid" style="margin-left:130px"></label>
+        </div>
+        <div style="margin:15px">
+            <label style="margin-right:150px">Fare:</label>
+            <input type="number" id="fare"></input>
+            <button id="update" type="submit" class="btn btn-primary">Update Fare</button>
+            <div id="errormessage" style="color:red"></div>
+        </div>
+        <div style="margin:15px">
+            <label>Nearest Intersection: </label>
+            <label id="intersection" style="margin-left:30px"></label>
+        </div>
+        <div class="form-check" style="margin:15px">
+            <label class="form-check-label" style="margin-bottom:10px">
+                <input id="check" type="checkbox" class="form-check-input">Open Station</input>
+            </label>
+            <p>When checked, passengers can enter at this station</p>
+            <p id="openmessage"></p>
+        </div>
+        <form class="form-inline">
+            <div class="form-group mx-sm-3">
+                <button type="button" class="btn btn-primary" id="home">Return</button>
+            </div>
+        </form>
+    </div>
+    <script src="javascripts/viewStation.js"></script>
+</body>
+</html>

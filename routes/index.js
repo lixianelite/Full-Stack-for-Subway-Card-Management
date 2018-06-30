@@ -10,6 +10,7 @@ const passenger = require('./passengerBC');
 const tripHistory = require('./tripHistory');
 const manageCards = require('./manageCards');
 const flowReport = require('./flowReport');
+const stationsListing = require('./stationsListing');
 
 router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'));
@@ -30,6 +31,12 @@ router.post('/removecard', manageCards.removeCard);
 
 router.get('/tripHistory', tripHistory.tripHistory);
 router.get('/flowReport', flowReport.flowReport);
+
+router.get('/getStations', stationsListing.getStations);
+router.get('/getStations/:StopID', stationsListing.getStationById);
+
+router.put('/updateFare', stationsListing.updateFare);
+router.put('/updateStatus', stationsListing.updateStatus);
 
 
 
