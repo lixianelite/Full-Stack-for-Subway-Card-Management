@@ -1,12 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <title>Manage BreezeCards</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.3/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 </head>
 <body>
-    This is breezecard
+    <div id="breezecard" class="container">
+        <h1>Breeze Cards</h1>
+        <div style="margin: 15px">
+            <label>Owner</label>
+            <input type="text" id="owner"></input>
+            <label class="form-check-label"  id="suspendedCards">
+                <input type="checkbox" class="form-check-input" id="checkbox">
+                Show suspended cards
+            </label>
+        </div>
+        <div style="margin: 15px">
+            <label>Card Number</label>
+            <input type="text" id="cardnum"></input>
+        </div>
+
+        <div style="margin:15px">
+            <label>Value from:</label>
+            <input type="text" id="min" name="min">
+            <label>to: </label>
+            <input type="text" id="max" name="max">
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-9 col-xs-offset-3">
+                <button type="submit" class="btn btn-primary">Refresh</button>
+            </div>
+        </div>
+
+        <table class = "table table-striped" id = "breezecards">
+            <thead>
+                <tr>
+                    <th>Card Number</th>
+                    <th>Value</th>
+                    <th>Owner</th>
+                </tr>
+            </thead>
+        </table>
+
+        <form class="form-inline">
+            <div class="form-group mx-sm-3">
+                <input type="number" class="form-control" id="bvalue" placeholder="$">
+            </div>
+            <button class="btn btn-primary" type="submit" id="vbutton">Set Value of Selected Card</button>
+        </form>
+
+        <form class="form-inline">
+            <div class="form-group mx-sm-3">
+                 <input type="text" class="form-control" id="bowner" placeholder="">
+            </div>
+            <button class="btn btn-primary" type="submit" id="obutton">Transfer Selected Card</button>
+        </form>
+        <form class="form-inline">
+            <div class="form-group mx-sm-3">
+                 <button type="button" class="btn btn-primary" id="home">Return</button>
+            </div>
+        </form>
+    </div>
+
 </body>
 </html>

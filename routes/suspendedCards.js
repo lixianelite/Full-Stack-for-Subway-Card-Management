@@ -133,8 +133,6 @@ var deleteConflict = function(breezecardNum) {
             resolve('OK');
         });
     });
-
-
 };
 
 
