@@ -1,13 +1,15 @@
 const md5 = require('md5');
 const db = require('../databases/dbconnection'); 
 
-const sql_insert_breezecard = 'INSERT INTO Breezecard(BreezecardNum, Value, BelongsTo) Values(?, ?, ?);';
 const sql_query_passenger_username = 'SELECT * FROM Passenger WHERE Username = ?;';
 const sql_query_passenger_email = 'SELECT * FROM Passenger WHERE Email = ?;';
+const sql_query_breezecard = 'SELECT * FROM Breezecard WHERE BreezecardNum = ?;';
+
+const sql_insert_breezecard = 'INSERT INTO Breezecard(BreezecardNum, Value, BelongsTo) Values(?, ?, ?);';
+const sql_insert_conflict = 'INSERT INTO Conflict(Username, BreezecardNum) VALUE(?, ?);';
 const sql_insert_user = 'INSERT INTO User(Username, Password, IsAdmin) VALUES(?, ?, ?);';
 const sql_insert_passenger = 'INSERT INTO Passenger(Username, Email) VALUES(?, ?);';
-const sql_query_breezecard = 'SELECT * FROM Breezecard WHERE BreezecardNum = ?;';
-const sql_insert_conflict = 'INSERT INTO Conflict(Username, BreezecardNum) VALUE(?, ?);';
+
 const sql_update_breezecard = 'UPDATE Breezecard SET BelongsTo = ? WHERE BreezecardNum = ?;';
 
 

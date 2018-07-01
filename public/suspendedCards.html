@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Suspended Cards</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.3/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Suspended Cards</h1>
+        <table id="cards" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Card #</th>
+                    <th>New Owner</th>
+                    <th>Date Suspended</th>
+                    <th>Previous Owner</th>
+                </tr>
+            </thead>
+        </table>
+        <div style="margin: auto; width:50%">
+            <div style="margin-bottom:10px">
+                <button type="submit" class="btn btn-primary" id="to-new-btn" disabled="true">Assign Selected Card to New Owner</button>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary inline-display" id="to-old-btn" disabled="true">Assign Selected Card to Previous Owner</button>
+                <button class="btn btn-primary inline-display float-right" id="home" >Return</button>
+                <p style="font-size:12px">Assigning the card to an owner will unlock all accounts conflicted on the same Breeze Card</p>
+            </div>
+        </div>
+    </div>
+    <script src="./javascripts/suspendedCards.js"></script>
+</body>
+</html>

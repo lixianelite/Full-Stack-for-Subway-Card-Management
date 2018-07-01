@@ -11,6 +11,7 @@ const tripHistory = require('./tripHistory');
 const manageCards = require('./manageCards');
 const flowReport = require('./flowReport');
 const stationsListing = require('./stationsListing');
+const suspendedCards = require('./suspendedCards');
 
 router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'));
@@ -29,9 +30,12 @@ router.post('/addNewCard', manageCards.addNewBreezecard);
 router.post('/addValue', manageCards.addValue);
 router.post('/removecard', manageCards.removeCard);
 router.post('/createStation', stationsListing.createStation);
+router.post('/assignToNewOwner', suspendedCards.assignCardsToNew);
+router.post('/assignToOldOwner', suspendedCards.assignCardsToOld);
 
 router.get('/tripHistory', tripHistory.tripHistory);
 router.get('/flowReport', flowReport.flowReport);
+router.get('/getSuspendedCards', suspendedCards.getCards);
 
 router.get('/getStations', stationsListing.getStations);
 router.get('/getStations/:StopID', stationsListing.getStationById);

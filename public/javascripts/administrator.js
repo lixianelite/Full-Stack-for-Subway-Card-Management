@@ -6,7 +6,7 @@ $(document).ready(function() {
     });
 
     $('#SC').click(function() {
-        window.location.href = '/suspendCards.html';
+        window.location.href = '/suspendedCards.html';
     });
 
     $('#SM').click(function() {

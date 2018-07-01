@@ -58,6 +58,14 @@ h1 {
     margin: 8px;
 }
 
+.inline-display {
+    display: inline-block;
+}
+
+.float-right {
+    float: right;
+}
+
 
 
 
