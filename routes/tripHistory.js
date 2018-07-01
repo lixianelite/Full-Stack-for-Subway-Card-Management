@@ -33,7 +33,4 @@ module.exports.tripHistory = function(req, res) {
         res.send(JSON.stringify(rows));
 
     });
-
-
-
 };
